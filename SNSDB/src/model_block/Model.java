@@ -1,7 +1,5 @@
 package model_block;
 
-import java.util.List;
-
 public class Model {
 
     private int id; // переменная для счетчика id
@@ -34,8 +32,7 @@ public class Model {
 
     public UserDB loadDb(String path) {
         Loader<UserDB> loader = new Loader<>();
-        userdb = (UserDB) loader.read(path);
-        return userdb;
+        return userdb = (UserDB) loader.read(path);
     }
 
     /**
@@ -45,8 +42,8 @@ public class Model {
      * @param email - email пользователя
      */
 
-    public void addUser(String username, String password, String email) {
-        userdb.addUser(new User(++id, username, password, email));
+    public void addUser(String name,String username, String password, String email) {
+        userdb.addUser(new User (++id, name, username, password, email));
     }
 
     /**
@@ -59,25 +56,26 @@ public class Model {
 
     /**
      * Метод модели реализующий поиск по id
+     *
      * @param id - возвращает id
      */
 
-    public User searchUser(int id) {
-        return userdb.findUser(id);
+    public void searchUser(int id) {
+        userdb.findUser(id);
     }
 
     /**
      * Перезагрузка метода модели, реализующий поиск по строке
+     *
      * @param search - возвращает поиск
      */
-    public User searchUser(String search) {
-        return userdb.findUser(search);
+    public void searchUser(String search) {
+        userdb.findUser(search);
     }
 
     /**
      * Метод модели, печатающий всех пользователей в БД
      */
-
     public void printAllUsers() {
         userdb.printAllUsers();
     }

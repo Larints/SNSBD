@@ -5,10 +5,12 @@ import java.io.Serializable;
 public class User implements Serializable {      // Класс пользователь, реализует первый принцип паттерна SOLID,
     // он отвечает только за свой функционал.
     private int id;
+
+    private String name;
+
     private String username;
     private String password;
     private String email;
-
 
     /**
      * Constructor for User.
@@ -18,8 +20,11 @@ public class User implements Serializable {      // Класс пользова�
      * @param password - пароль пользователя;
      * @param email    - email пользователя;
      */
-    public User(int id, String username, String password, String email) {
+    public User(int id, String name, String username, String password, String email) {
         this.id = id;
+        if (name != null) {
+            this.name = name;
+        }
         if (username != null) {
             this.username = username;
         }
@@ -51,6 +56,9 @@ public class User implements Serializable {      // Класс пользова�
         }
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * Метод для установки пароля
@@ -110,7 +118,7 @@ public class User implements Serializable {      // Класс пользова�
      */
     @Override
     public String toString() {
-        return "[" + id + "." + " " + username + " " + email + "]";
+        return "[" + id + "." + " " + name + " " +  username + " " + email + "]";
 
     }
 }

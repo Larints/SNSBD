@@ -6,11 +6,11 @@ import java.util.Scanner;
 
 public class UserView implements UI {
 
-    Scanner in;
+    Scanner in; // Создаём переменную сканнера
 
-    Presenter presenter;
+    Presenter presenter; // Создаём экземпляр презентера
 
-    private String select = """
+    private String select = """         
             1. Загрузить базу данных.
             2. Сохранить базу данных.
             3. Добавить пользователя.
@@ -20,51 +20,82 @@ public class UserView implements UI {
             7. Выход.
             """;
 
+    /**
+     * Конструктор вьюера
+     */
     public UserView() {
         in = new Scanner(System.in);
         presenter = new Presenter(this);
     }
 
+    /**
+     * Реализация метода интерфейса "Приветствие"
+     */
     @Override
     public void greetings() {
         System.out.println("Добро пожаловать, пройдите процедуру регистрации!");
     }
 
-
-    public void registerationButton() {
-        this.greetings();
-        presenter.registrationButtonClicked(this.setUserName(), this.setPassword(),this.setEmail());
-        System.out.println("Ваши данные успешно внесены базу");
+    /**
+     * Метод который позволяет задать имя пользователя
+     * @return - возвращает строку
+     */
+    @Override
+    public String setName() {
+        System.out.print("Введите имя пользователя:  ");
+        return in.nextLine();
     }
 
+
+    /**
+     * Метод имитирующий кнопку валидации.
+     * Проверяя пароль по хэш - коду
+     */
     public void validationButton() {
-        if (this.setUserName().equals("admin") && this.setPassword().equals("QweAsd123")) {
+        if (this.setUserName().equals("admin") && this.setPassword().hashCode() == "QweAsd123".hashCode()) {
             System.out.println("Добро пожаловать в режим разработчика!");
             select();
         }
     }
 
+    /**
+     * Метод позволяющий задать логин пользователя
+     * @return - возвращает строку
+     */
     @Override
     public String setUserName() {
         System.out.print("Введите логин:  ");
         return in.nextLine();
     }
 
+    /**
+     * Метод позволяющий задать пароль пользователя
+     * @return - возвращает пароль
+     */
     @Override
     public String setPassword() {
         System.out.print("Введите пароль: ");
         return in.nextLine();
     }
 
+    /**
+     * Метод ползволяющий задать email пользователя
+     * @return - возвращает email
+     */
     public String setEmail() {
-        System.out.println("Введите e-mail: ");
+        System.out.print("Введите e-mail: ");
         return in.nextLine();
     }
 
+    /**
+     * Метод имитации поведения меню
+     */
     @Override
     public void select() {
         while (true) {
+            System.out.println("=".repeat(50));
             System.out.println(select);
+            System.out.println("=".repeat(50));
             switch (in.nextLine()) {
                 case "1":
                     presenter.loadData();
@@ -75,7 +106,7 @@ public class UserView implements UI {
                     System.out.println("База успешно сохранена!");
                     break;
                 case "3":
-                    presenter.addUser(setUserName(), setPassword(), setEmail());
+                    presenter.addUser(setName(), setUserName(), setPassword(), setEmail());
                     System.out.println("Ваши данные успешно внесены базу");
                     break;
                 case "4":
@@ -84,7 +115,10 @@ public class UserView implements UI {
                     System.out.println("Пользователь успешно удален");
                     break;
                 case "5":
-                    presenter.searchUser(in.nextLine());
+                    System.out.println("Введите значение поиска: ");
+                    if (in.hasNextLine()) {
+                        presenter.searchUser(in.nextLine());
+                    } else presenter.searchUser(in.nextInt());
                     break;
                 case "6":
                     presenter.printAllUsers();

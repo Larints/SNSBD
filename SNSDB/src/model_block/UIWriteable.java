@@ -4,7 +4,8 @@ public interface UIWriteable <T> {
 
     /**
      * Интерфейс реализующий запись
-     * @param path - путь записи
+     *
+     * @param path   - путь записи
      * @param object - аргумент потока
      */
     void write(String path, T object);

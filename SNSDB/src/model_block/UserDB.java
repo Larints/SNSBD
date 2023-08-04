@@ -9,6 +9,7 @@ public class UserDB implements Serializable {
 
     private int currentId; // Текущий id
 
+
     private List<User> userdb; // Создание базы данных
 
     /**
@@ -56,30 +57,41 @@ public class UserDB implements Serializable {
         return false;
     }
 
-    public User findUser(String username) {
-        if (username != null) {
-            for (User user : userdb) {
-                if (user.getUsername().equals(username)) {
-                    return user;
-                }
+    /**
+     * Метод поиска пользователя в базе данных
+     *
+     * @param username - поиск по введенным параметрам
+     */
+
+    public void findUser(String username) {
+        for (User user: userdb) {
+            if (user.toString().contains(username)) {
+                System.out.println(user);
             }
         }
-        return null; // Если пользователь с заданным именем не найден, возвращаем null
     }
 
-    public User findUser(int id) {
+
+    /**
+     * Метод поиска пользователя в базе данных
+     *
+     * @param id - поиск по введенным параметрам
+     */
+    public void findUser(int id) {
         for (User user : userdb) {
             if (user.getId() == id) {
-                return user;
+                System.out.println(user);
             }
         }
-        return null; // Если пользователь с заданным id не найден, возвращаем null
     }
+
+    /**
+     * Метод вывода всех пользователей в базе данных
+     */
 
     public void printAllUsers() {
         for (User user : userdb) {
             System.out.println(user);
         }
     }
-
 }

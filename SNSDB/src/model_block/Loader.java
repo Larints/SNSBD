@@ -2,13 +2,13 @@ package model_block;
 
 import java.io.*;
 
-public class Loader<T extends UserDB> implements UIWriteable {  // Класс загрузчик, который реализует через поток сохранение в файл
+public class Loader<T extends UserDB> implements UIWriteable {
 
 
     /**
-     * Метод записи в файл и использованием исключений
-     * @param path - путь для записи
-     * @param output - поток записи
+     * Метод записи в файл
+     * @param path   - путь записи
+     * @param output - аргумент потока
      */
 
     @Override
@@ -20,13 +20,12 @@ public class Loader<T extends UserDB> implements UIWriteable {  // Класс з
         } catch (IOException e) {
             System.out.println(e);
         }
-
     }
 
     /**
      * Метод чтения
-     * @param path - путь чтения
-     * @return - возврат null, если чтение не удалось
+     * @param path - путь сохранения
+     * @return - возвращает объект потока
      */
     @Override
     public Object read(String path) {
